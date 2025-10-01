@@ -3,7 +3,7 @@ using System;
 
 #nullable disable
 
-namespace Tienda.src.Infrastructure.Data.Migration
+namespace Tienda.src.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigrate : Migration
