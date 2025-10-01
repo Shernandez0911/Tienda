@@ -10,32 +10,44 @@ using Tienda.src.Domain.Models;
 using Tienda.src.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("SqliteDatabase") ?? throw new InvalidOperationException("Connection string SqliteDatabase no configurado");
 
+builder.Services.AddDataProtection();
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+var connectionString = builder.Configuration.GetConnectionString("SqliteDatabase")
+    ?? throw new InvalidOperationException("Connection string SqliteDatabase no configurado");
 
-var app = builder.Build();
-
-var _logger = app.Services.GetRequiredService<ILogger<Program>>();
-_logger.LogInformation("Application is starting...");
-app.MapOpenApi();
-
-
-
-# region Logging Configuration
+// Configurar Logging (Serilog)
 builder.Host.UseSerilog((context, services, configuration) => configuration
     .ReadFrom.Configuration(context.Configuration)
     .ReadFrom.Services(services));
-#endregion
 
-#region Database Configuration
-Log.Information("Configurando base de datos SQLite");
+// Configurar servicios
+builder.Services.AddOpenApi();
+
+
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlite(connectionString));
-#endregion
 
+builder.Services.AddIdentityCore<User>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 8;
+    options.Password.RequireNonAlphanumeric = false;
+    options.User.RequireUniqueEmail = true;
+    options.User.AllowedUserNameCharacters = builder.Configuration["IdentityConfiguration:AllowedUserNameCharacters"]
+        ?? throw new InvalidOperationException("Los caracteres permitidos para UserName no están configurados.");
+})
+    .AddRoles<Role>()
+    .AddEntityFrameworkStores<DataContext>()
+    .AddDefaultTokenProviders();
+
+// Construye la app después de configurar todos los servicios
+var app = builder.Build();
+
+// Ahora sí, usa los servicios del contenedor
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
+logger.LogInformation("Application is starting...");
+
+app.MapOpenApi();
 
 app.Run();
