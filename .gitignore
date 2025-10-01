@@ -15,6 +15,15 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+bin and obj folders
+[Bb]in/
+[Oo]bj/
+
+Sqlite database files
+*.db
+app.db-shm
+app.db-wal
+
 # Mono auto generated files
 mono_crash.*
 
@@ -484,3 +493,11 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+/logs
+/src/Domain/Models
+
+# Sqlite database files
+*.db
+app.db-shm
+app.db-wal
