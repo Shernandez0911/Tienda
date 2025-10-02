@@ -32,6 +32,17 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IVerificationCodeRepository, VerificationCodeRepository>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 
+#region Email Service Configuration
+Log.Information("Configurando servicio de Email");
+builder.Services.AddOptions();
+builder.Services.AddHttpClient<ResendClient>();
+builder.Services.Configure<ResendClientOptions>(o =>
+{
+    o.ApiToken = builder.Configuration["ResendAPIKey"] ?? throw new InvalidOperationException("El token de API de Resend no está configurado.");
+});
+builder.Services.AddTransient<IResend, ResendClient>();
+#endregion
+
 
 # region Logging Configuration
 builder.Host.UseSerilog((context, services, configuration) => configuration

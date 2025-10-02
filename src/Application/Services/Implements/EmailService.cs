@@ -62,7 +62,7 @@ namespace Tienda.src.Application.Services.Implements
         /// </summary>
         /// <param name="templateName">El nombre de la plantilla sin extensión.</param>
         /// <param name="code">El código a insertar en la plantilla.</param>
-        /// <returns>El contenido HTML de la plantilla con el código reemplazado.</returns
+        /// <returns>El contenido HTML de la plantilla con el código reemplazado.</returns>
         private async Task<string> LoadTemplate(string templateName, string? code)
         {
             var templatePath = Path.Combine(_webHostEnvironment.ContentRootPath, "Src", "Application", "Templates", "Email", $"{templateName}.html");
