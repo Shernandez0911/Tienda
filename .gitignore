@@ -495,7 +495,9 @@ $RECYCLE.BIN/
 *.swp
 
 /logs
-/src/Domain/Models
+/obj
+/bin
+/.vscode
 
 # Sqlite database files
 *.db
