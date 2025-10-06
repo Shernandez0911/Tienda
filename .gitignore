@@ -493,6 +493,9 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+# .gitignore
+obj/
+bin/
 
 /logs
 /obj
@@ -503,3 +506,14 @@ $RECYCLE.BIN/
 *.db
 app.db-shm
 app.db-wal
+obj/Debug/net9.0/Tienda.csproj.AssemblyReference.cache
+obj/Debug/net9.0/Tienda.assets.cache
+obj/Debug/net9.0/Tienda.AssemblyInfoInputs.cache
+obj/Tienda.csproj.nuget.g.props
+obj/project.assets.json
+obj/project.nuget.cache
+obj/Tienda.csproj.nuget.dgspec.json
+obj/Debug/net9.0/Tienda.csproj.AssemblyReference.cache
+obj/Debug/net9.0/Tienda.assets.cache
+obj/Debug/net9.0/Tienda.AssemblyInfoInputs.cache
+obj/Tienda.csproj.nuget.g.props
